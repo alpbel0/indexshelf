@@ -1,0 +1,10 @@
+build:
+  maxIssues: 0
+
+complexity:
+  LongMethod:
+    active: false
+
+style:
+  MagicNumber:
+    active: false

@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+  <PropertyGroup>
+    <RootNamespace>IndexShelf.Worker</RootNamespace>
+    <AssemblyName>IndexShelf.Worker</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\BuildingBlocks\IndexShelf.Application.Abstractions\IndexShelf.Application.Abstractions.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\IndexShelf.ModuleContracts\IndexShelf.ModuleContracts.csproj" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
+  </ItemGroup>
+</Project>

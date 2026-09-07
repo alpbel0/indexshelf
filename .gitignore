@@ -1,0 +1,62 @@
+# Local-only decisions and roadmap
+/docs/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pfx
+*.pem
+*.key
+*.crt
+
+# Build output and generated artifacts
+[Bb]in/
+[Oo]bj/
+**/build/
+!apps/backend/build/
+!apps/backend/build/**
+!apps/data/build/
+!apps/data/build/**
+**/*.binlog
+out/
+artifacts/
+coverage/
+TestResults/
+contracts/generated/
+
+# IDE and OS files
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.swp
+.DS_Store
+Thumbs.db
+
+# Local state and data
+*.dump
+*.sql.gz
+*.tfstate*
+local/.env
+local/data/
+e2e/data/*
+!e2e/data/**/.gitkeep
+
+# Python
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+
+# Android/Gradle
+.gradle/
+local.properties
+*.jks
+*.keystore
+
+# Node
+node_modules/
+npm-debug.log*

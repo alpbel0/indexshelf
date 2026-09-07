@@ -1,0 +1,15 @@
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+WORKDIR /src
+COPY apps/backend/ ./apps/backend/
+RUN dotnet restore apps/backend/IndexShelf.Backend.slnx
+RUN dotnet publish apps/backend/src/Hosts/IndexShelf.Api/IndexShelf.Api.csproj \
+    --no-restore --configuration Release --output /out
+
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
+WORKDIR /app
+ENV ASPNETCORE_URLS=http://+:18080
+ENV DOTNET_EnableDiagnostics=0
+COPY --from=build /out/ ./
+USER 10001
+EXPOSE 18080
+ENTRYPOINT ["dotnet", "IndexShelf.Api.dll"]

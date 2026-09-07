@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <RootNamespace>IndexShelf.Api</RootNamespace>
+    <AssemblyName>IndexShelf.Api</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\BuildingBlocks\IndexShelf.Application.Abstractions\IndexShelf.Application.Abstractions.csproj" />
+    <ProjectReference Include="..\..\BuildingBlocks\IndexShelf.ModuleContracts\IndexShelf.ModuleContracts.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>IndexShelf.SharedKernel</RootNamespace>
+    <AssemblyName>IndexShelf.SharedKernel</AssemblyName>
+    <PackageId>IndexShelf.SharedKernel</PackageId>
+    <Description>Bootstrap shared kernel boundary for IndexShelf backend.</Description>
+  </PropertyGroup>
+</Project>

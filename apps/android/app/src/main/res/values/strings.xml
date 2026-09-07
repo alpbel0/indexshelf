@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">IndexShelf</string>
+    <string name="startup_welcome">IndexShelf is ready</string>
+    <string name="error_unknown">Something went wrong. Please try again.</string>
+    <plurals name="saved_items">
+        <item quantity="one">%d saved item</item>
+        <item quantity="other">%d saved items</item>
+    </plurals>
+</resources>

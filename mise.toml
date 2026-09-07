@@ -1,0 +1,9 @@
+[tools]
+dotnet = "10.0.400"
+python = "3.12.12"
+node = "22.14.0"
+uv = "0.8.14"
+
+[env]
+DOTNET_CLI_TELEMETRY_OPTOUT = "1"
+DOTNET_NOLOGO = "1"

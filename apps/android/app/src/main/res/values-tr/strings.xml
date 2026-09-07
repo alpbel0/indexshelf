@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">IndexShelf</string>
+    <string name="startup_welcome">IndexShelf hazır</string>
+    <string name="error_unknown">Bir sorun oluştu. Lütfen tekrar deneyin.</string>
+    <plurals name="saved_items">
+        <item quantity="one">%d kayıtlı öğe</item>
+        <item quantity="other">%d kayıtlı öğe</item>
+    </plurals>
+</resources>

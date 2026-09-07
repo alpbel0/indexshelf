@@ -1,0 +1,5 @@
+<Project>
+  <Target Name="ValidateBackendTargetFramework" BeforeTargets="PrepareForBuild">
+    <Error Condition="'$(TargetFramework)' != 'net10.0'" Text="Backend projects must target net10.0." />
+  </Target>
+</Project>

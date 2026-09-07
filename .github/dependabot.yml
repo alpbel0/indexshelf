@@ -1,0 +1,18 @@
+version: 2
+updates:
+  - package-ecosystem: nuget
+    directory: /apps/backend
+    schedule:
+      interval: monthly
+  - package-ecosystem: gradle
+    directory: /apps/android
+    schedule:
+      interval: monthly
+  - package-ecosystem: pip
+    directory: /apps/data
+    schedule:
+      interval: monthly
+  - package-ecosystem: npm
+    directory: /contracts
+    schedule:
+      interval: monthly

@@ -1,0 +1,9 @@
+<Solution>
+  <Project Path="src/Hosts/IndexShelf.Api/IndexShelf.Api.csproj" />
+  <Project Path="src/Hosts/IndexShelf.Worker/IndexShelf.Worker.csproj" />
+  <Project Path="src/Hosts/IndexShelf.DbMigrator/IndexShelf.DbMigrator.csproj" />
+  <Project Path="src/BuildingBlocks/IndexShelf.SharedKernel/IndexShelf.SharedKernel.csproj" />
+  <Project Path="src/BuildingBlocks/IndexShelf.Application.Abstractions/IndexShelf.Application.Abstractions.csproj" />
+  <Project Path="src/BuildingBlocks/IndexShelf.ModuleContracts/IndexShelf.ModuleContracts.csproj" />
+  <Project Path="tests/Architecture/IndexShelf.ArchitectureTests/IndexShelf.ArchitectureTests.csproj" />
+</Solution>
