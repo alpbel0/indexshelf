@@ -1,6 +1,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 COPY apps/backend/ ./apps/backend/
+COPY contracts/ ./contracts/
 RUN dotnet restore apps/backend/IndexShelf.Backend.slnx
 RUN dotnet publish apps/backend/src/Hosts/IndexShelf.Worker/IndexShelf.Worker.csproj \
     --no-restore --configuration Release --output /out

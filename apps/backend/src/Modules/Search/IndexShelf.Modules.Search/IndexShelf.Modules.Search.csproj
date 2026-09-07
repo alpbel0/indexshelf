@@ -1,0 +1,4 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><RootNamespace>IndexShelf.Modules.Search</RootNamespace><AssemblyName>IndexShelf.Modules.Search</AssemblyName></PropertyGroup>
+  <ItemGroup><ProjectReference Include="..\..\..\BuildingBlocks\IndexShelf.Application.Abstractions\IndexShelf.Application.Abstractions.csproj" /><ProjectReference Include="..\..\..\BuildingBlocks\IndexShelf.ModuleContracts\IndexShelf.ModuleContracts.csproj" /><PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" /></ItemGroup>
+</Project>

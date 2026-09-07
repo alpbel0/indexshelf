@@ -39,6 +39,18 @@ public sealed class LayerDependencyTests
         Assert.Equal(1, solutionCount);
     }
 
+    [Fact]
+    public void Api_and_worker_do_not_start_database_migrations()
+    {
+        foreach (var host in new[] { "IndexShelf.Api", "IndexShelf.Worker" })
+        {
+            var files = ArchitectureTestContext.ProductionFiles()
+                .Where(path => path.Contains($"{Path.DirectorySeparatorChar}Hosts{Path.DirectorySeparatorChar}{host}{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase));
+            Assert.DoesNotContain(files, path => File.ReadAllText(path).Contains("MigrateAsync", StringComparison.Ordinal));
+            Assert.DoesNotContain(files, path => File.ReadAllText(path).Contains("MigrationRunner", StringComparison.Ordinal));
+        }
+    }
+
     private static Func<string, bool> IsUnder(string directory) => path =>
         path.Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar).Contains(directory, StringComparer.OrdinalIgnoreCase);
 }

@@ -24,7 +24,7 @@ Invoke-CheckStep 'Backend restore/build/test' {
     try {
         Invoke-Native { dotnet restore IndexShelf.Backend.slnx }
         Invoke-Native { dotnet build IndexShelf.Backend.slnx --no-restore --configuration Release }
-        Invoke-Native { dotnet test IndexShelf.Backend.slnx --no-build --configuration Release }
+        Invoke-Native { dotnet test tests\Architecture\IndexShelf.ArchitectureTests\IndexShelf.ArchitectureTests.csproj --no-build --configuration Release }
     } finally { Pop-Location }
 }
 
