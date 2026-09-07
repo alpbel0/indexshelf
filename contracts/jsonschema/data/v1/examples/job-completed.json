@@ -1,0 +1,20 @@
+{
+  "message_id": "00000000-0000-4000-8000-000000000021",
+  "message_kind": "event",
+  "message_type": "job.completed",
+  "message_version": 1,
+  "occurred_at": "2026-09-07T10:00:02Z",
+  "correlation_id": "00000000-0000-4000-8000-000000000002",
+  "causation_id": "00000000-0000-4000-8000-000000000011",
+  "producer": "data",
+  "subject": { "kind": "job", "id": "00000000-0000-4000-8000-000000000003" },
+  "payload": {
+    "job_id": "00000000-0000-4000-8000-000000000003",
+    "partial": true,
+    "components": [
+      { "name": "metadata", "status": "completed", "content_ref": { "ref": "jobs/00000000-0000-4000-8000-000000000003/metadata", "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "content_type": "text/markdown", "size_bytes": 4096, "expires_at": "2026-09-07T10:30:00Z" } },
+      { "name": "static", "status": "failed" },
+      { "name": "media", "status": "skipped" }
+    ]
+  }
+}

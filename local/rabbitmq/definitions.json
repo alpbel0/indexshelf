@@ -1,0 +1,28 @@
+{
+  "users": [
+    {"name": "indexshelf_backend", "password_hash": "MTIzNBe6y+hdS1nbP0pmzbw2utYbulvCz/X37ObvM1I1/0iM", "hashing_algorithm": "rabbit_password_hashing_sha256", "tags": []},
+    {"name": "indexshelf_data", "password_hash": "NTY3OJWKEiFe548Ggx1a3knyljRsqPmP8+oLhZnwCNWnj91z", "hashing_algorithm": "rabbit_password_hashing_sha256", "tags": []}
+  ],
+  "vhosts": [{"name": "/indexshelf"}],
+  "permissions": [
+    {"user": "indexshelf_backend", "vhost": "/indexshelf", "configure": "^$", "write": "^indexshelf\\.backend\\.commands.*$", "read": "^indexshelf\\.data\\.events.*$"},
+    {"user": "indexshelf_data", "vhost": "/indexshelf", "configure": "^$", "write": "^indexshelf\\.data\\.events.*$", "read": "^indexshelf\\.backend\\.commands.*$"}
+  ],
+  "exchanges": [
+    {"name": "indexshelf.backend.commands", "vhost": "/indexshelf", "type": "topic", "durable": true},
+    {"name": "indexshelf.data.events", "vhost": "/indexshelf", "type": "topic", "durable": true},
+    {"name": "indexshelf.dlx", "vhost": "/indexshelf", "type": "topic", "durable": true}
+  ],
+  "queues": [
+    {"name": "indexshelf.backend.commands", "vhost": "/indexshelf", "durable": true, "arguments": {"x-queue-type": "quorum", "x-dead-letter-exchange": "indexshelf.dlx", "x-dead-letter-routing-key": "backend.commands"}},
+    {"name": "indexshelf.data.events", "vhost": "/indexshelf", "durable": true, "arguments": {"x-queue-type": "quorum", "x-dead-letter-exchange": "indexshelf.dlx", "x-dead-letter-routing-key": "data.events"}},
+    {"name": "indexshelf.backend.commands.dlq", "vhost": "/indexshelf", "durable": true, "arguments": {"x-queue-type": "quorum"}},
+    {"name": "indexshelf.data.events.dlq", "vhost": "/indexshelf", "durable": true, "arguments": {"x-queue-type": "quorum"}}
+  ],
+  "bindings": [
+    {"source": "indexshelf.backend.commands", "vhost": "/indexshelf", "destination": "indexshelf.backend.commands", "destination_type": "queue", "routing_key": "#"},
+    {"source": "indexshelf.data.events", "vhost": "/indexshelf", "destination": "indexshelf.data.events", "destination_type": "queue", "routing_key": "#"},
+    {"source": "indexshelf.dlx", "vhost": "/indexshelf", "destination": "indexshelf.backend.commands.dlq", "destination_type": "queue", "routing_key": "backend.commands"},
+    {"source": "indexshelf.dlx", "vhost": "/indexshelf", "destination": "indexshelf.data.events.dlq", "destination_type": "queue", "routing_key": "data.events"}
+  ]
+}

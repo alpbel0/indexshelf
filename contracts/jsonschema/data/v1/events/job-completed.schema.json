@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contracts.indexshelf.dev/data/v1/events/job-completed.schema.json",
+  "title": "Job Completed Event",
+  "type": "object",
+  "additionalProperties": false,
+  "allOf": [{ "$ref": "../common/event-envelope.schema.json" }],
+  "required": ["message_id", "message_kind", "message_type", "message_version", "occurred_at", "correlation_id", "producer", "subject", "payload"],
+  "properties": {
+    "message_id": { "type": "string", "format": "uuid" }, "message_kind": { "const": "event" }, "message_type": { "const": "job.completed" }, "message_version": { "const": 1 },
+    "occurred_at": { "$ref": "../common/trace-context.schema.json#/$defs/utcDateTime" }, "correlation_id": { "type": "string", "format": "uuid" }, "causation_id": { "type": ["string", "null"], "format": "uuid" }, "producer": { "const": "data" },
+    "subject": { "type": "object", "additionalProperties": false, "required": ["kind", "id"], "properties": { "kind": { "const": "job" }, "id": { "type": "string", "format": "uuid" } } },
+    "payload": { "type": "object", "additionalProperties": false, "required": ["job_id", "partial", "components"], "properties": { "job_id": { "type": "string", "format": "uuid" }, "partial": { "type": "boolean" }, "components": { "type": "array", "minItems": 1, "items": { "type": "object", "additionalProperties": false, "required": ["name", "status"], "properties": { "name": { "type": "string", "enum": ["metadata", "static", "media", "outbox"] }, "status": { "type": "string", "enum": ["completed", "failed", "skipped"] }, "content_ref": { "$ref": "../common/content-ref.schema.json" } } } } } }
+  }
+}

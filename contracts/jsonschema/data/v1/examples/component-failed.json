@@ -1,0 +1,16 @@
+{
+  "message_id": "00000000-0000-4000-8000-000000000011",
+  "message_kind": "event",
+  "message_type": "component.failed",
+  "message_version": 1,
+  "occurred_at": "2026-09-07T10:00:01Z",
+  "correlation_id": "00000000-0000-4000-8000-000000000002",
+  "causation_id": "00000000-0000-4000-8000-000000000001",
+  "producer": "data",
+  "subject": { "kind": "component", "id": "00000000-0000-4000-8000-000000000012" },
+  "payload": {
+    "job_id": "00000000-0000-4000-8000-000000000003",
+    "component": "static",
+    "error": { "error_code": "HTTP_RATE_LIMITED", "retryable": true, "message": "The source requested a retry." }
+  }
+}

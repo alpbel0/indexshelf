@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contracts.indexshelf.dev/data/v1/common/trace-context.schema.json",
+  "title": "IndexShelf Trace Context",
+  "$defs": {
+    "utcDateTime": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?Z$"
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["trace_id", "span_id"],
+  "properties": {
+    "trace_id": { "type": "string", "pattern": "^[a-f0-9]{32}$" },
+    "span_id": { "type": "string", "pattern": "^[a-f0-9]{16}$" },
+    "trace_flags": { "type": "string", "enum": ["00", "01"] }
+  }
+}

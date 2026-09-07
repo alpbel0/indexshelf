@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contracts.indexshelf.dev/data/v1/common/content-ref.schema.json",
+  "title": "Opaque Content Reference",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["ref", "sha256", "content_type", "size_bytes", "expires_at"],
+  "properties": {
+    "ref": { "type": "string", "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._/-]{0,511}$" },
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "content_type": { "type": "string", "pattern": "^[a-z0-9!#$&^_.+-]+/[a-z0-9!#$&^_.+-]+$", "maxLength": 127 },
+    "size_bytes": { "type": "integer", "minimum": 0, "maximum": 52428800 },
+    "expires_at": { "type": "string", "format": "date-time", "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,6})?Z$" }
+  }
+}

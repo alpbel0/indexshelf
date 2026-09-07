@@ -1,0 +1,5 @@
+version = "0.76.2"
+input_format = "jsonschema"
+output_model_type = "pydantic_v2.BaseModel"
+use_standard_collections = true
+use_schema_description = true

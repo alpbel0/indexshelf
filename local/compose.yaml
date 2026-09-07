@@ -1,0 +1,138 @@
+name: ${COMPOSE_PROJECT_NAME:-indexshelf-local}
+
+networks:
+  indexshelf_local:
+    name: ${COMPOSE_PROJECT_NAME:-indexshelf-local}_network
+
+volumes:
+  postgres_data:
+    name: ${COMPOSE_PROJECT_NAME:-indexshelf-local}_postgres_data
+  rabbitmq_data:
+    name: ${COMPOSE_PROJECT_NAME:-indexshelf-local}_rabbitmq_data
+  valkey_data:
+    name: ${COMPOSE_PROJECT_NAME:-indexshelf-local}_valkey_data
+  minio_data:
+    name: ${COMPOSE_PROJECT_NAME:-indexshelf-local}_minio_data
+  mailpit_data:
+    name: ${COMPOSE_PROJECT_NAME:-indexshelf-local}_mailpit_data
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: ${POSTGRES_SUPERUSER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_SUPERUSER_PASSWORD:-indexshelf_local_postgres_dummy}
+      POSTGRES_DB: postgres
+    ports:
+      - "${POSTGRES_HOST_PORT:-55433}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres/init:/docker-entrypoint-initdb.d:ro
+      - ./postgres/healthcheck.sh:/usr/local/bin/indexshelf-postgres-healthcheck:ro
+    healthcheck:
+      test: ["CMD-SHELL", "/usr/local/bin/indexshelf-postgres-healthcheck"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    networks: [indexshelf_local]
+
+  rabbitmq:
+    image: rabbitmq:4.0-management-alpine
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+      - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - ./rabbitmq/definitions.json:/etc/rabbitmq/definitions.json:ro
+    ports:
+      - "${RABBITMQ_HOST_PORT:-55673}:5672"
+      - "${RABBITMQ_MANAGEMENT_PORT:-55674}:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    networks: [indexshelf_local]
+
+  valkey:
+    image: valkey/valkey:8.0-alpine
+    command: ["valkey-server", "/etc/valkey/valkey.conf"]
+    volumes:
+      - valkey_data:/data
+      - ./valkey/valkey.conf:/etc/valkey/valkey.conf:ro
+    expose:
+      - "6379"
+    healthcheck:
+      test: ["CMD", "valkey-cli", "-a", "indexshelf_valkey_dummy_password", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    networks: [indexshelf_local]
+
+  minio:
+    image: minio/minio:RELEASE.2024-12-18T13-15-44Z
+    command: ["server", "/data", "--console-address", ":9001"]
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-indexshelf_minio_root}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-indexshelf_minio_root_dummy_password}
+      MINIO_DATA_USER: ${MINIO_DATA_USER:-indexshelf_minio_data}
+      MINIO_DATA_PASSWORD: ${MINIO_DATA_PASSWORD:-indexshelf_minio_data_dummy_password}
+    ports:
+      - "${MINIO_API_HOST_PORT:-59010}:9000"
+      - "${MINIO_CONSOLE_HOST_PORT:-59011}:9001"
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9000/minio/health/live || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    networks: [indexshelf_local]
+
+  minio-init:
+    image: minio/mc:latest
+    entrypoint: ["/bin/sh", "/config/create-buckets.sh"]
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-indexshelf_minio_root}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-indexshelf_minio_root_dummy_password}
+      MINIO_DATA_USER: ${MINIO_DATA_USER:-indexshelf_minio_data}
+      MINIO_DATA_PASSWORD: ${MINIO_DATA_PASSWORD:-indexshelf_minio_data_dummy_password}
+    volumes:
+      - ./minio/create-buckets.sh:/config/create-buckets.sh:ro
+      - ./minio/lifecycle.json:/config/lifecycle.json:ro
+      - ./minio/data-policy.json:/config/data-policy.json:ro
+    depends_on:
+      minio:
+        condition: service_healthy
+    networks: [indexshelf_local]
+
+  wiremock:
+    image: wiremock/wiremock:3.9.2
+    command: ["--global-response-templating", "--disable-banner"]
+    ports:
+      - "${WIREMOCK_HOST_PORT:-58080}:8080"
+    volumes:
+      - ./mocks/wiremock:/home/wiremock:ro
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O - http://localhost:8080/__admin/health >/dev/null"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    networks: [indexshelf_local]
+
+  mailpit:
+    image: axllent/mailpit:v1.21.8
+    env_file:
+      - ./mocks/smtp/mailpit.env
+    environment:
+      MP_DATABASE: /data/mailpit.db
+      MP_MAX_MESSAGES: 100
+    ports:
+      - "${MAILPIT_SMTP_PORT:-51025}:1025"
+      - "${MAILPIT_UI_PORT:-58025}:8025"
+    volumes:
+      - mailpit_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O - http://localhost:8025/liveness >/dev/null"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    networks: [indexshelf_local]

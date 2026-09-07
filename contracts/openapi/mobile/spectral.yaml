@@ -1,0 +1,9 @@
+functions:
+  - noSensitiveProperties
+functionsDir: .
+rules:
+  no-sensitive-schema-fields:
+    description: Mobile schemas must not expose credential or secret-shaped fields.
+    given: $.components.schemas[*].properties
+    then:
+      function: noSensitiveProperties

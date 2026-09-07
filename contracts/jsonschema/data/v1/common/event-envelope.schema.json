@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contracts.indexshelf.dev/data/v1/common/event-envelope.schema.json",
+  "title": "IndexShelf Data Event Envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["message_id", "message_kind", "message_type", "message_version", "occurred_at", "correlation_id", "producer", "subject", "payload"],
+  "properties": {
+    "message_id": { "type": "string", "format": "uuid" },
+    "message_kind": { "type": "string", "enum": ["command", "event"] },
+    "message_type": { "type": "string", "pattern": "^[a-z][a-z0-9]*(?:\\.[a-z0-9]+)+$" },
+    "message_version": { "type": "integer", "const": 1 },
+    "occurred_at": { "$ref": "./trace-context.schema.json#/$defs/utcDateTime" },
+    "correlation_id": { "type": "string", "format": "uuid" },
+    "causation_id": { "type": ["string", "null"], "format": "uuid" },
+    "producer": { "type": "string", "enum": ["backend", "data"] },
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id"],
+      "properties": {
+        "kind": { "type": "string", "enum": ["job", "component", "bookmark"] },
+        "id": { "type": "string", "format": "uuid" }
+      }
+    },
+    "payload": { "type": "object" }
+  }
+}

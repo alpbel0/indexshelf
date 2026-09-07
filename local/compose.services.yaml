@@ -1,0 +1,34 @@
+services:
+  backend-api:
+    profiles: [published]
+    image: indexshelf-backend-api:local
+    build:
+      context: ..
+      dockerfile: apps/backend/build/Dockerfile.api
+    depends_on:
+      postgres: {condition: service_healthy}
+      rabbitmq: {condition: service_healthy}
+    networks: [indexshelf_local]
+
+  backend-worker:
+    profiles: [published]
+    image: indexshelf-backend-worker:local
+    build:
+      context: ..
+      dockerfile: apps/backend/build/Dockerfile.worker
+    depends_on:
+      postgres: {condition: service_healthy}
+      rabbitmq: {condition: service_healthy}
+    networks: [indexshelf_local]
+
+  data-worker:
+    profiles: [published]
+    image: indexshelf-data-worker:local
+    build:
+      context: ..
+      dockerfile: apps/data/build/Dockerfile.worker
+    depends_on:
+      postgres: {condition: service_healthy}
+      rabbitmq: {condition: service_healthy}
+      minio: {condition: service_healthy}
+    networks: [indexshelf_local]

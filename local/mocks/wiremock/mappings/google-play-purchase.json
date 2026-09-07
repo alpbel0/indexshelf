@@ -1,0 +1,1 @@
+{"request":{"method":"POST","urlPath":"/androidpublisher/v3/applications/com.indexshelf/purchases/products/mock-token"},"response":{"status":200,"headers":{"Content-Type":"application/json"},"jsonBody":{"kind":"androidpublisher#productPurchase","purchaseState":0,"consumptionState":0,"orderId":"mock-order-0001"}}}

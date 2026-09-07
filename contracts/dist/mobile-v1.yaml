@@ -1,0 +1,137 @@
+openapi: 3.1.0
+info:
+  title: IndexShelf Mobile API
+  version: 1.0.0
+  description: Versioned public HTTP contract for IndexShelf mobile clients.
+  license:
+    name: MIT
+    identifier: MIT
+servers:
+  - url: https://api.indexshelf.local
+    description: Secure local development endpoint
+tags:
+  - name: Identity
+    description: Reserved for the identity vertical slice.
+  - name: Product
+    description: Reserved for product vertical slices.
+paths: {}
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Short-lived access token. Token values must never appear in
+        examples or logs.
+  parameters:
+    CorrelationId:
+      name: X-Correlation-Id
+      in: header
+      required: true
+      description: UUID identifying the request flow across services.
+      schema:
+        type: string
+        format: uuid
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: true
+      description: UUID identifying a retryable mutating operation.
+      schema:
+        type: string
+        format: uuid
+    AcceptLanguage:
+      name: Accept-Language
+      in: header
+      required: false
+      description: Optional BCP 47 language preference; error codes remain
+        locale-independent.
+      schema:
+        type: string
+        pattern: ^[A-Za-z0-9*]+(?:-[A-Za-z0-9]+)*(?:\s*,\s*[A-Za-z0-9*]+(?:-[A-Za-z0-9]+)*(?:\s*;\s*q=(?:0(?:\.\d{1,3})?|1(?:\.0{1,3})?))?)*$
+        example: tr-TR
+  schemas:
+    ProblemDetails:
+      type: object
+      required:
+        - type
+        - title
+        - status
+        - code
+        - correlationId
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+          format: uri-reference
+          default: about:blank
+        title:
+          type: string
+          minLength: 1
+          maxLength: 160
+        status:
+          type: integer
+          minimum: 400
+          maximum: 599
+        detail:
+          type: string
+          maxLength: 2000
+        instance:
+          type: string
+          format: uri-reference
+        code:
+          type: string
+          enum:
+            - common.invalid_request
+            - common.unauthorized
+            - common.forbidden
+            - common.not_found
+            - common.conflict
+            - common.rate_limited
+            - common.internal
+        correlationId:
+          type: string
+          format: uuid
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+              maxLength: 500
+    CursorPage:
+      type: object
+      required:
+        - items
+        - nextCursor
+      properties:
+        items:
+          type: array
+          items: {}
+        nextCursor:
+          type:
+            - string
+            - "null"
+          maxLength: 512
+    Cursor:
+      type: string
+      minLength: 1
+      maxLength: 512
+    UtcDateTime:
+      type: string
+      format: date-time
+      description: RFC 3339 timestamp normalized to UTC with a Z suffix.
+      pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?Z$
+    UtcDate:
+      type: string
+      format: date
+    StableErrorCode:
+      type: string
+      enum:
+        - common.invalid_request
+        - common.unauthorized
+        - common.forbidden
+        - common.not_found
+        - common.conflict
+        - common.rate_limited
+        - common.internal

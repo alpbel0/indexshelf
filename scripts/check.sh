@@ -43,8 +43,13 @@ run_contracts() {
   "$validator"
 }
 
+run_local_definitions() {
+  uv run --project "$ROOT/contracts" pytest "$ROOT/e2e/tests/smoke/test_local_dependency_definitions.py" "$ROOT/e2e/tests/smoke/test_stack_health.py"
+}
+
 run_step 'Backend restore/build/test' run_backend
 run_step 'Data sync/lint/type/test' run_data
 run_step 'Android assemble/lint/test/quality' run_android
 run_step 'Contract validation' run_contracts
+run_step 'Local dependency definition smoke' run_local_definitions
 printf 'All checks passed.\n'

@@ -1,0 +1,13 @@
+generatorName: kotlin
+inputSpec: openapi/mobile/v1/openapi.yaml
+outputDir: generated/kotlin
+generatorVersion: 7.12.0
+library: jvm-retrofit2
+additionalProperties:
+  packageName: com.indexshelf.contracts.generated
+  serializationLibrary: gson
+  enumPropertyNaming: original
+globalProperties:
+  models: ProblemDetails,CursorPage
+  apis: false
+  supportingFiles: false

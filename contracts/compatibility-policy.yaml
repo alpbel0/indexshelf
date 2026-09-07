@@ -1,0 +1,19 @@
+contract: indexshelf-mobile
+majorVersion: 1
+policy: no-breaking-within-major
+breakingChanges:
+  - remove-operation
+  - remove-or-narrow-property
+  - change-requiredness
+  - change-security-requirement
+allowedChanges:
+  - add-optional-property
+  - add-operation
+  - add-enum-value
+dataContracts:
+  version: 1.0.0
+  source: jsonschema/data/v1
+  producerValidation: strict-reject-unknown-fields
+  consumerCompatibility:
+    unknownOptionalFields: ignore
+    unknownEventTypes: ignore-and-observe

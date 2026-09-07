@@ -1,0 +1,12 @@
+{
+  "message_id": "00000000-0000-4000-8000-000000000061",
+  "message_kind": "event",
+  "message_type": "job.failed",
+  "message_version": 1,
+  "occurred_at": "2026-09-07T10:00:00Z",
+  "correlation_id": "00000000-0000-4000-8000-000000000062",
+  "causation_id": "00000000-0000-4000-8000-000000000064",
+  "producer": "data",
+  "subject": { "kind": "job", "id": "00000000-0000-4000-8000-000000000063" },
+  "payload": { "job_id": "00000000-0000-4000-8000-000000000063", "error": { "error_code": "DEPENDENCY_UNAVAILABLE", "retryable": true, "message": "The dependency is temporarily unavailable." } }
+}

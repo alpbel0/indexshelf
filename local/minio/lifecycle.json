@@ -1,0 +1,6 @@
+{
+  "Rules": [
+    {"ID": "temporary-content-24h", "Status": "Enabled", "Filter": {"Prefix": "content/"}, "Expiration": {"Days": 1}},
+    {"ID": "browser-artifact-7d", "Status": "Enabled", "Filter": {"Prefix": "browser/"}, "Expiration": {"Days": 7}}
+  ]
+}

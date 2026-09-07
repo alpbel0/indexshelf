@@ -1,0 +1,1 @@
+{"request":{"method":"POST","urlPath":"/v1/chat/completions"},"response":{"status":200,"headers":{"Content-Type":"application/json"},"jsonBody":{"id":"mock-completion-0001","choices":[{"message":{"role":"assistant","content":"synthetic mock response"}}]}}}

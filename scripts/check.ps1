@@ -54,4 +54,8 @@ Invoke-CheckStep 'Contract validation' {
     Invoke-Native { pwsh -NoProfile -File $validator }
 }
 
+Invoke-CheckStep 'Local dependency definition smoke' {
+    Invoke-Native { uv run --project $root\contracts pytest $root\e2e\tests\smoke\test_local_dependency_definitions.py $root\e2e\tests\smoke\test_stack_health.py }
+}
+
 Write-Host 'All checks passed.'

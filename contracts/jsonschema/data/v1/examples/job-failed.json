@@ -1,0 +1,15 @@
+{
+  "message_id": "00000000-0000-4000-8000-000000000031",
+  "message_kind": "event",
+  "message_type": "job.failed",
+  "message_version": 1,
+  "occurred_at": "2026-09-07T10:00:03Z",
+  "correlation_id": "00000000-0000-4000-8000-000000000004",
+  "causation_id": "00000000-0000-4000-8000-000000000029",
+  "producer": "data",
+  "subject": { "kind": "job", "id": "00000000-0000-4000-8000-000000000032" },
+  "payload": {
+    "job_id": "00000000-0000-4000-8000-000000000032",
+    "error": { "error_code": "CONTENT_VALIDATION_FAILED", "retryable": false, "message": "The extracted content was invalid." }
+  }
+}

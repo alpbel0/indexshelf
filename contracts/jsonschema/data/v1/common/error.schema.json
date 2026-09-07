@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contracts.indexshelf.dev/data/v1/common/error.schema.json",
+  "title": "Stable Data Error",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["error_code", "retryable", "message"],
+  "properties": {
+    "error_code": {
+      "type": "string",
+      "enum": ["INVALID_URL", "UNSUPPORTED_SCHEME", "CONNECT_TIMEOUT", "READ_TIMEOUT", "HTTP_ACCESS_DENIED", "HTTP_NOT_FOUND", "HTTP_RATE_LIMITED", "HTTP_SERVER_ERROR", "CONTENT_EXTRACTION_EMPTY", "CONTENT_VALIDATION_FAILED", "UNSUPPORTED_MIME", "CAPTCHA_REQUIRED", "ROBOTS_POLICY_DENIED", "PROXY_UNAVAILABLE", "PROXY_CONFIGURATION_ERROR", "DEPENDENCY_UNAVAILABLE", "BROWSER_OPERATION_TIMEOUT", "BROWSER_CRASHED", "WORKER_INTERRUPTED", "CANCELLED"]
+    },
+    "retryable": { "type": "boolean" },
+    "message": { "type": "string", "minLength": 1, "maxLength": 500 },
+    "stage": { "type": "string", "enum": ["fetch", "browser", "extract", "validate", "media", "publish"] },
+    "details_ref": { "$ref": "content-ref.schema.json" }
+  }
+}

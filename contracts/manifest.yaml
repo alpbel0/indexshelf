@@ -1,0 +1,32 @@
+contract: indexshelf-mobile
+version: 1.0.0
+format: openapi-3.1
+breakingChangePolicy: no-breaking-within-major
+source: openapi/mobile/v1/openapi.yaml
+provenance:
+  owner: mobile-public-api
+  generatedSources: []
+dataContracts:
+  name: indexshelf-data
+  version: 1.0.0
+  format: jsonschema-draft-2020-12
+  source: jsonschema/data/v1
+  schemas:
+    - common/event-envelope.schema.json
+    - common/error.schema.json
+    - common/content-ref.schema.json
+    - common/trace-context.schema.json
+    - commands/cancel-job.schema.json
+    - events/component-failed.schema.json
+    - events/job-completed.schema.json
+    - events/job-failed.schema.json
+    - events/job-cancelled.schema.json
+codegen:
+  manifestVersion: 1.0.0
+  generatedRoot: generated
+  generatedManifest: generated/codegen-manifest.json
+  checksumAlgorithm: sha256
+  provenance:
+    kotlin: openapi-generator@7.12.0
+    python: datamodel-code-generator@0.76.2
+    csharp: NJsonSchema.CodeGeneration.CSharp@11.3.2
