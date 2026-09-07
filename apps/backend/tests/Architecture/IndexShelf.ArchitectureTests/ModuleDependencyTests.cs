@@ -41,6 +41,25 @@ public sealed class ModuleDependencyTests
         Assert.False(ArchitectureTestContext.ContainsForbiddenReference(valid, ["IndexShelf.Modules.Bookmarks.Domain"]));
         Assert.True(ArchitectureTestContext.ContainsForbiddenReference(invalid, ["IndexShelf.Modules.Bookmarks.Domain"]));
     }
+
+    [Fact]
+    public void Module_projects_do_not_reference_each_other()
+    {
+        var moduleProjects = Directory.EnumerateFiles(
+                Path.Combine(ArchitectureTestContext.BackendRoot, "src", "Modules"), "*.csproj", SearchOption.AllDirectories)
+            .ToArray();
+        foreach (var project in moduleProjects)
+        {
+            var current = Path.GetFileNameWithoutExtension(project).Replace("IndexShelf.Modules.", "", StringComparison.Ordinal);
+            var references = File.ReadAllText(project);
+            foreach (var other in moduleProjects.Where(candidate => !candidate.Equals(project, StringComparison.OrdinalIgnoreCase)))
+            {
+                var otherName = Path.GetFileNameWithoutExtension(other).Replace("IndexShelf.Modules.", "", StringComparison.Ordinal);
+                Assert.DoesNotContain($"IndexShelf.Modules.{otherName}", references, StringComparison.OrdinalIgnoreCase);
+            }
+            Assert.Contains($"IndexShelf.Modules.{current}", references, StringComparison.OrdinalIgnoreCase);
+        }
+    }
 }
 
 internal static partial class Regexes

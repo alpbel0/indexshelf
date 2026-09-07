@@ -2,8 +2,15 @@
   <Project Path="src/Hosts/IndexShelf.Api/IndexShelf.Api.csproj" />
   <Project Path="src/Hosts/IndexShelf.Worker/IndexShelf.Worker.csproj" />
   <Project Path="src/Hosts/IndexShelf.DbMigrator/IndexShelf.DbMigrator.csproj" />
+  <Project Path="src/Infrastructure/IndexShelf.Persistence/IndexShelf.Persistence.csproj" />
+  <Project Path="src/Infrastructure/IndexShelf.Infrastructure/IndexShelf.Infrastructure.csproj" />
   <Project Path="src/BuildingBlocks/IndexShelf.SharedKernel/IndexShelf.SharedKernel.csproj" />
   <Project Path="src/BuildingBlocks/IndexShelf.Application.Abstractions/IndexShelf.Application.Abstractions.csproj" />
   <Project Path="src/BuildingBlocks/IndexShelf.ModuleContracts/IndexShelf.ModuleContracts.csproj" />
+  <Project Path="src/Modules/Identity/IndexShelf.Modules.Identity/IndexShelf.Modules.Identity.csproj" />
+  <Project Path="src/Modules/Bookmarks/IndexShelf.Modules.Bookmarks/IndexShelf.Modules.Bookmarks.csproj" />
+  <Project Path="src/Modules/Reminders/IndexShelf.Modules.Reminders/IndexShelf.Modules.Reminders.csproj" />
+  <Project Path="src/Modules/Search/IndexShelf.Modules.Search/IndexShelf.Modules.Search.csproj" />
+  <Project Path="src/Modules/Operations/IndexShelf.Modules.Operations/IndexShelf.Modules.Operations.csproj" />
   <Project Path="tests/Architecture/IndexShelf.ArchitectureTests/IndexShelf.ArchitectureTests.csproj" />
 </Solution>

@@ -1,0 +1,4 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><RootNamespace>IndexShelf.Infrastructure</RootNamespace><AssemblyName>IndexShelf.Infrastructure</AssemblyName></PropertyGroup>
+  <ItemGroup><ProjectReference Include="..\..\BuildingBlocks\IndexShelf.SharedKernel\IndexShelf.SharedKernel.csproj" /><PackageReference Include="RabbitMQ.Client" /><PackageReference Include="StackExchange.Redis" /><PackageReference Include="AWSSDK.S3" /></ItemGroup>
+</Project>

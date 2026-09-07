@@ -6,6 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\BuildingBlocks\IndexShelf.Application.Abstractions\IndexShelf.Application.Abstractions.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\IndexShelf.Persistence\IndexShelf.Persistence.csproj" />
     <PackageReference Include="Microsoft.Extensions.Hosting" />
   </ItemGroup>
 </Project>

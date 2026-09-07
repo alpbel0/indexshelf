@@ -86,8 +86,7 @@ def database_violations(path: Path) -> set[str]:
     violations = {
         module
         for module in qualified_imported_modules(path)
-        if module.split(".")[0] in DATABASE_MODULES
-        and layer in {"domain", "application"}
+        if module.split(".")[0] in DATABASE_MODULES and layer in {"domain", "application"}
     }
     violations.update(marker for marker in DATABASE_MARKERS if marker in source)
     return violations

@@ -58,6 +58,8 @@ services:
     volumes:
       - valkey_data:/data
       - ./valkey/valkey.conf:/etc/valkey/valkey.conf:ro
+    ports:
+      - "${VALKEY_HOST_PORT:-56389}:6379"
     expose:
       - "6379"
     healthcheck:
@@ -131,7 +133,7 @@ services:
     volumes:
       - mailpit_data:/data
     healthcheck:
-      test: ["CMD-SHELL", "wget -q -O - http://localhost:8025/liveness >/dev/null"]
+      test: ["CMD-SHELL", "wget -q -O - http://localhost:8025/ >/dev/null"]
       interval: 5s
       timeout: 3s
       retries: 12

@@ -6,6 +6,12 @@
   <ItemGroup>
     <ProjectReference Include="..\..\BuildingBlocks\IndexShelf.Application.Abstractions\IndexShelf.Application.Abstractions.csproj" />
     <ProjectReference Include="..\..\BuildingBlocks\IndexShelf.ModuleContracts\IndexShelf.ModuleContracts.csproj" />
+    <ProjectReference Include="..\..\Modules\Identity\IndexShelf.Modules.Identity\IndexShelf.Modules.Identity.csproj" />
+    <ProjectReference Include="..\..\Modules\Bookmarks\IndexShelf.Modules.Bookmarks\IndexShelf.Modules.Bookmarks.csproj" />
+    <ProjectReference Include="..\..\Modules\Reminders\IndexShelf.Modules.Reminders\IndexShelf.Modules.Reminders.csproj" />
+    <ProjectReference Include="..\..\Modules\Search\IndexShelf.Modules.Search\IndexShelf.Modules.Search.csproj" />
+    <ProjectReference Include="..\..\Modules\Operations\IndexShelf.Modules.Operations\IndexShelf.Modules.Operations.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\IndexShelf.Persistence\IndexShelf.Persistence.csproj" />
     <PackageReference Include="Microsoft.Extensions.Hosting" />
   </ItemGroup>
 </Project>

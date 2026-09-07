@@ -2,9 +2,7 @@ import json
 import logging
 import re
 
-_SENSITIVE_VALUE = re.compile(
-    r"(?i)(password|secret|token|authorization)(\s*[=:]\s*)([^\s,;]+)"
-)
+_SENSITIVE_VALUE = re.compile(r"(?i)(password|secret|token|authorization)(\s*[=:]\s*)([^\s,;]+)")
 
 
 class RedactingFormatter(logging.Formatter):

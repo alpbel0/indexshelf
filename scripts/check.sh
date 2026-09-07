@@ -14,7 +14,7 @@ run_backend() {
   pushd "$ROOT/apps/backend" >/dev/null
   dotnet restore IndexShelf.Backend.slnx
   dotnet build IndexShelf.Backend.slnx --no-restore --configuration Release
-  dotnet test IndexShelf.Backend.slnx --no-build --configuration Release
+  dotnet test tests/Architecture/IndexShelf.ArchitectureTests/IndexShelf.ArchitectureTests.csproj --no-build --configuration Release
   popd >/dev/null
 }
 
