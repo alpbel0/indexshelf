@@ -1,6 +1,7 @@
+from pytest import MonkeyPatch
+
 from indexshelf_data.apps.migrate import main
 from indexshelf_data.apps.worker_profile import DEFAULT_WORKER_PROFILE
-from pytest import MonkeyPatch
 
 
 def test_migration_entrypoint_does_not_report_fake_success(monkeypatch: MonkeyPatch) -> None:

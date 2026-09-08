@@ -10,6 +10,7 @@ class DataSettings(BaseSettings):
     secret_reference: str | None = None
     database_url: str = "postgresql+asyncpg://indexshelf_data_runtime:indexshelf_data_runtime_dummy@localhost:55433/indexshelf_data"
     alembic_database_url: str = "postgresql+psycopg://indexshelf_data_migrator:indexshelf_data_migrator_dummy@localhost:55433/indexshelf_data"
+    rabbitmq_url: str = "amqp://indexshelf_data:data_dummy_password@localhost:55673/%2Findexshelf"
     model_config = SettingsConfigDict(env_prefix="INDEXSHELF_DATA_", extra="ignore")
 
     @model_validator(mode="after")

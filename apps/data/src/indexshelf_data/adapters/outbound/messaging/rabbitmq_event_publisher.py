@@ -29,7 +29,8 @@ class RabbitMqEventPublisher:
 
     async def connect(self) -> None:
         self._connection = await aio_pika.connect_robust(self._settings.url, timeout=10)
-        self._channel = cast(aio_pika.abc.AbstractRobustChannel, await self._connection.channel(publisher_confirms=True))
+        channel = await self._connection.channel(publisher_confirms=True)
+        self._channel = cast(aio_pika.abc.AbstractRobustChannel, channel)
         await self._channel.set_qos(prefetch_count=32)
 
     async def publish(self, body: bytes, *, routing_key: str, message_id: str) -> None:

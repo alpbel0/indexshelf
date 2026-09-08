@@ -7,7 +7,7 @@ public interface IOutboxMessagePublisher
 
 public interface IInboxMessageConsumer
 {
-    Task ConsumeAsync(ReadOnlyMemory<byte> payload, Func<CancellationToken, Task> durableHandler, CancellationToken cancellationToken = default);
+    Task ConsumeAsync(ulong deliveryTag, ReadOnlyMemory<byte> payload, Func<CancellationToken, Task> durableHandler, CancellationToken cancellationToken = default);
 }
 
 public static class DeliveryPolicy
